@@ -11,7 +11,10 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
     require("dotenv").config({ path: "config/config.env" });
   }
 
-app.use(cors())
+  app.use(cors({
+    credentials: true,
+    origin: [process.env.ORIGIN_1 ,process.env.ORIGIN_2 ] 
+  }))
 app.use(cookieParser())
 
 app.use(bodyParser.json());
@@ -27,10 +30,7 @@ connectTODatabase()
 const userRouter = require('./router/userRouter') 
 const commanRouter = require('./router/commanRouter') 
  
-app.get("/",(req,res)=>{
-        res.send("hello")
-}
-       )
+
 app.use("/api/v1", userRouter)
 app.use("/api/v1", commanRouter)
  

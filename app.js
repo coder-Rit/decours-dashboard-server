@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 
   app.use(cors({
     credentials: true,
-    origin: [process.env.ORIGIN_1 ,process.env.ORIGIN_2 ] 
+    origin: [process.env.ORIGIN_1,process.env.ORIGIN_2,process.env.ORIGIN_3] 
   }))
 app.use(cookieParser())
 

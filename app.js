@@ -27,7 +27,10 @@ connectTODatabase()
 const userRouter = require('./router/userRouter') 
 const commanRouter = require('./router/commanRouter') 
  
-
+app.get("/",(req,res)=>{
+        res.send("hello")
+}
+       )
 app.use("/api/v1", userRouter)
 app.use("/api/v1", commanRouter)
  

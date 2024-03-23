@@ -15,4 +15,4 @@ const aboutSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("about", aboutSchema);
+module.exports  = (selectedDB) => selectedDB.model("about", aboutSchema);

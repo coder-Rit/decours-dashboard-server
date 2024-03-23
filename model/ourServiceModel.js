@@ -15,4 +15,4 @@ const ourServiceSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("ourservice", ourServiceSchema);
+module.exports  = (selectedDB) => selectedDB.model("ourservice", ourServiceSchema);

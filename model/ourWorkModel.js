@@ -9,6 +9,6 @@ const workSchema = new mongoose.Schema({
 });
 
 // Create model
-const Work = mongoose.model('Work', workSchema);
+module.exports = (selectedDB) => selectedDB.model('Work', workSchema);
 
-module.exports = Work;
+ 

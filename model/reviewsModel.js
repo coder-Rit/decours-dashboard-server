@@ -12,6 +12,6 @@ const reviewSchema = new mongoose.Schema({
 });
 
 // Create model
-const reviewModel = mongoose.model('reviewModel', reviewSchema);
+module.exports  = (selectedDB) => selectedDB.model('reviewModel', reviewSchema);
 
-module.exports = reviewModel;
+ 

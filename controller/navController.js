@@ -1,17 +1,17 @@
+const { navModel_db1 } = require("../app");
 const catchAsyncErorr = require("../middleware/catchAsyncErorr");
 
 const ErrorHandler = require("../utils/errorHandler");
-const navModel = require("../model/navModel");
-
+ 
 // signUp
 exports.uploadLogo = catchAsyncErorr(async (req, res, next) => {
   if (!req.body.logoUrl) {
     return next(new ErrorHandler("Please upload file", 404));
   }
 
-  await navModel.deleteMany({});
+  await navModel_db1.deleteMany({});
 
-  const fileComp = await navModel.create({
+  const fileComp = await navModel_db1.create({
     logoUrl: req.body.logoUrl,
   });
 
@@ -25,7 +25,7 @@ exports.uploadLogo = catchAsyncErorr(async (req, res, next) => {
 exports.getLogo = catchAsyncErorr(async (req, res, next) => {
   
 
-  const data = await navModel.find({});
+  const data = await navModel_db1.find({});
 
   res.status(200).json({
     msg: "Section updated",

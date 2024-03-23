@@ -1,14 +1,11 @@
 const express = require('express')
-const { signUp, login, logOut, signUpFaculty } = require('../controller/userContoller')
-const { isAuthenticated, authorizedRole } = require('../middleware/auth')
- 
+const { getUser } = require('../controller/userContoller')
+  
 
 const Router = express.Router()
 
-Router.route("/signup").post(signUp)
-Router.route("/signup/faculty").post(isAuthenticated,authorizedRole("teacher"),signUpFaculty)
-Router.route("/login").post(login)
-Router.route("/logout").get(logOut)
+Router.route("/getUsers").get(getUser)
+ 
  
 
 module.exports =Router

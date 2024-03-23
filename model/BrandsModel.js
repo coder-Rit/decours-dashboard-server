@@ -8,6 +8,6 @@ const brandSchema = new mongoose.Schema({
 });
 
 // Create model
-const Brand = mongoose.model('Brand', brandSchema);
+ 
+module.exports   = (selectedDB) => selectedDB.model('Brand', brandSchema);
 
-module.exports = Brand;

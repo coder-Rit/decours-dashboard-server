@@ -1,76 +1,28 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const validator = require("validator")
+const mongoose = require("mongoose");
 
+const userSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: [true, "name is required"],
+    unique: true,
+  },
+  email: {
+    type: String,
+    required: [true, "email is required"],
+  },
+  password: {
+    type: String,
+    select: false,
+    // required:[true, "password is required"],
+    minLength: [6, "password must have atleast 6 characters"],
+    // match:/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+  },
+  mobile: {
+    type: String,
+    minLength: [10, "no should have minimum 10 digits"],
+    maxLength: [10, "no should have maximum 10 digits"],
+    match: [/\d{10}/, "no should only have digits"],
+  },
+});
 
-
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: [true, "This username is aleady taken"],
-        minLength: [6, "Username is too short"],
-        maxLength: [14, "Username is too big"],
-    },
-    email: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        unique: [true, "This email is aleady registerd"],
-        required: [true, "Email address is required"],
-        validate: [validator.isEmail, "Please Enter a valid Email"]
-
-    },
-    password: {
-        type: String,
-        required: true,
-        select: false,
-        minLength: [6, "Password is too short"],
-        maxLength: [12, "Password is too big"],
-    },
-    role:{
-        type: String,
-        default:"teacher",
-    }, 
-      
-    clgShortName:{
-        type: String, 
-        default:""
-    },
-    status:{
-        type:String,
-        default:"unBand"
-    },
-    settings:{
- type:Object,
- default:{
-    theme:"light_theme"
- }
-    },
-    resetPasswordToken: String,
-    resetPasswordExpire: Date,
-})
-
-// converting password into hash
-userSchema.pre("save", async function () {
-    if (!this.isModified('password')) {
-        next()
-    }
-    this.password = await bcrypt.hash(this.password, 10)
-})
-
-// compairing password
-userSchema.methods.comparePassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
-  };
-
-//josn web token genrator
-userSchema.methods.getJWTtoken =  function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECREATE, {
-        expiresIn: process.env.JWT_EXPIRE
-    })
-}
-
-module.exports = mongoose.model('user', userSchema)
-
+module.exports = (selectedDB) => selectedDB.model("user", userSchema);

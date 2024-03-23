@@ -11,5 +11,5 @@ const navigtionSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('navbar', navigtionSchema)
+module.exports  = (selectedDB) => selectedDB.model('navbar', navigtionSchema)
 

@@ -1,17 +1,17 @@
+const { WorkModel_db1 } = require("../app");
 const catchAsyncErorr = require("../middleware/catchAsyncErorr");
 
 const ErrorHandler = require("../utils/errorHandler");
-const ourWorkModel = require("../model/ourWorkModel");
-
+ 
 // signUp
 exports.updateWork = catchAsyncErorr(async (req, res, next) => {
   if (!req.body) {
     return next(new ErrorHandler("Please upload file", 404));
   }
 
-  await ourWorkModel.deleteMany({});
+  await WorkModel_db1.deleteMany({});
 
-  const fileComp = await ourWorkModel.create(req.body);
+  const fileComp = await WorkModel_db1.create(req.body);
 
   res.status(200).json({
     msg: "Section updated",
@@ -23,7 +23,7 @@ exports.updateWork = catchAsyncErorr(async (req, res, next) => {
 exports.getWork = catchAsyncErorr(async (req, res, next) => {
   
 
-    const data = await ourWorkModel.find({});
+    const data = await WorkModel_db1.find({});
   
     res.status(200).json({
       msg: "Section updated",

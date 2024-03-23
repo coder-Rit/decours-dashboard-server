@@ -1,17 +1,17 @@
+const { ourServiceModel_db1 } = require("../app");
 const catchAsyncErorr = require("../middleware/catchAsyncErorr");
 
 const ErrorHandler = require("../utils/errorHandler");
-const ourServiceModel = require("../model/ourServiceModel");
-
+ 
 // signUp
 exports.updateService = catchAsyncErorr(async (req, res, next) => {
   if (!req.body) {
     return next(new ErrorHandler("Please upload file", 404));
   }
 
-  await ourServiceModel.deleteMany({});
+  await ourServiceModel_db1.deleteMany({});
 
-  const fileComp = await ourServiceModel.create({
+  const fileComp = await ourServiceModel_db1.create({
     data: req.body,
   });
 
@@ -25,7 +25,7 @@ exports.updateService = catchAsyncErorr(async (req, res, next) => {
 exports.getServices = catchAsyncErorr(async (req, res, next) => {
   
 
-    const data = await ourServiceModel.find({});
+    const data = await ourServiceModel_db1.find({});
   
     res.status(200).json({
       msg: "Section updated",

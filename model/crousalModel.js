@@ -20,4 +20,4 @@ const crousalSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("crousal", crousalSchema);
+module.exports  = (selectedDB) => selectedDB.model("crousal", crousalSchema);
